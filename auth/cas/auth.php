@@ -410,7 +410,7 @@ class auth_plugin_cas extends auth_plugin_ldap {
         }
 
         $extusername = textlib::convert($username, 'utf-8', $this->config->ldapencoding);
-
+        $ldapconnection=$this->ldap_connect();    
         // Test for group creator
         if (!empty($this->config->groupecreators)) {
             if ($this->config->memberattribute_isdn) {
