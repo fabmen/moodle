@@ -420,7 +420,8 @@ abstract class grade_report {
             }
             else {
                 //use reprocessed marks that exclude hidden items
-                $finalgrade = $hiding_affected['unknown'][$course_item->id];
+		    //
+		    //$finalgrade = $hiding_affected['unknown'][$course_item->id];
             }
         }
 
