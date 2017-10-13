@@ -277,6 +277,25 @@ class auth_plugin_shibboleth extends auth_plugin_base {
             return;
         }
     }
+    /**
+     * Return a list of identity providers to display on the login page.
+     *
+     * @param string|moodle_url $wantsurl The requested URL.
+     * @return array List of arrays with keys url, iconurl and name.
+     */
+    public function loginpage_idp_list($wantsurl) {
+        global $CFG;
+        $config = get_config('auth_shibboleth');
+        if (empty($CFG->loginhttps)) {
+            $securewwwroot = $CFG->wwwroot;
+        } else {
+            $securewwwroot = str_replace('http:','https:',$CFG->wwwroot);
+        }
+        $result = [];
+        $url = new moodle_url($securewwwroot.'/auth/shibboleth/index.php');
+        $result[] = ['url' => $url, 'iconurl' => $config->auth_logo, 'name' => $config->login_name];
+        return $result;
+    }
 }
 
 
