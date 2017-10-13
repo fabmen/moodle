@@ -41,6 +41,18 @@ if ($ADMIN->fulltree) {
         $settings->add(new admin_setting_heading('auth_cas/pluginname', '',
                 new lang_string('auth_casdescription', 'auth_cas')));
 
+        // Authentication method name.
+        $settings->add(new admin_setting_configtext('auth_cas/auth_name',
+                get_string('auth_cas_auth_method', 'auth_cas'),
+                get_string('auth_cas_auth_method_description', 'auth_cas'), 'CAS Login', PARAM_RAW_TRIMMED));
+
+        // Authentication method logo.
+        $opts = array('accepted_types' => array('.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'));
+        $settings->add(new admin_setting_configstoredfile('auth_cas/auth_logo',
+                get_string('auth_cas_auth_logo', 'auth_cas'),
+                get_string('auth_cas_auth_logo_description', 'auth_cas'), 'logo', 0, $opts));
+
+
         // CAS server configuration label.
         $settings->add(new admin_setting_heading('auth_cas/casserversettings',
                 new lang_string('auth_cas_server_settings', 'auth_cas'), ''));
