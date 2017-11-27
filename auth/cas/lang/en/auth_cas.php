@@ -74,3 +74,7 @@ $string['CASform'] = 'Authentication choice';
 $string['noldapserver'] = 'No LDAP server configured for CAS! Syncing disabled.';
 $string['pluginname'] = 'CAS server (SSO)';
 $string['synctask'] = 'CAS users sync job';
+$string['auth_cas_auth_name'] = 'Authentication method name';
+$string['auth_cas_auth_name_description'] = 'Provide a name for the CAS authentication method that is familiar to your users.';
+$string['auth_cas_auth_logo'] = 'Authentication method logo';
+$string['auth_cas_auth_logo_description'] = 'Provide a logo for the CAS authentication method that is familiar to your users.';
