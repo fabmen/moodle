@@ -21,8 +21,8 @@
  * Distributed under GPL (c)Markus Hagman 2004-2006
  *
  * @package auth_shibboleth
- * @author Martin Dougiamas
- * @author Lukas Haemmerle
+ * @author  Martin Dougiamas
+ * @author  Lukas Haemmerle
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
 
@@ -131,9 +131,9 @@ class auth_plugin_shibboleth extends auth_plugin_base {
          // Provide an API to modify the information to fit the Moodle internal
         // data representation
         if (
-              $this->config->convert_data
-              && $this->config->convert_data != ''
-              && is_readable($this->config->convert_data)
+            $this->config->convert_data
+            && $this->config->convert_data != ''
+            && is_readable($this->config->convert_data)
             ) {
 
             // Include a custom file outside the Moodle dir to
@@ -276,6 +276,31 @@ class auth_plugin_shibboleth extends auth_plugin_base {
             echo $OUTPUT->notification(get_string("auth_shib_no_organizations_warning", "auth_shibboleth"), 'notifyproblem');
             return;
         }
+    }
+    /**
+     * Return a list of identity providers to display on the login page.
+     *
+     * @param string|moodle_url $wantsurl The requested URL.
+     * @return array List of arrays with keys url, iconurl and name.
+     */
+    public function loginpage_idp_list($wantsurl) {
+        global $CFG;
+        $config = get_config('auth_shibboleth');
+        if (empty($CFG->loginhttps)) {
+            $securewwwroot = $CFG->wwwroot;
+        } else {
+            $securewwwroot = str_replace('http:', 'https:', $CFG->wwwroot);
+        }
+        $result = [];
+        $url = new moodle_url($securewwwroot.'/auth/shibboleth/index.php');
+        $iconurl = moodle_url::make_pluginfile_url(context_system::instance()->id,
+                                                   'auth_shibboleth',
+                                                   'logo',
+                                                   null,
+                                                   '/',
+                                                   $config->auth_logo);
+        $result[] = ['url' => $url, 'iconurl' => $iconurl, 'name' => $config->login_name];
+        return $result;
     }
 }
 
